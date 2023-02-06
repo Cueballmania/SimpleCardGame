@@ -9,9 +9,9 @@ version:        0.1.0.0
 description:    Please see the README on GitHub at <https://github.com/githubuser/SimpleCardGame#readme>
 homepage:       https://github.com/githubuser/SimpleCardGame#readme
 bug-reports:    https://github.com/githubuser/SimpleCardGame/issues
-author:         Author name here
-maintainer:     example@example.com
-copyright:      2023 Author name here
+author:         Cuey
+maintainer:     cueballmania@hotmail.com
+copyright:      2023 Cuey
 license:        BSD3
 license-file:   LICENSE
 build-type:     Simple
@@ -26,7 +26,6 @@ source-repository head
 library
   exposed-modules:
       Deck
-      Lib
   other-modules:
       Paths_SimpleCardGame
   hs-source-dirs:
