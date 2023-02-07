@@ -47,6 +47,9 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - SimpleCardGame
+    when:
+    - condition: false
+      other-modules: Paths_SimpleCardGame
 
 tests:
   SimpleCardGame-test:
