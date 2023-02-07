@@ -1,6 +1,6 @@
 module Main (main) where
 
-import Deck
+import Deck (Card, Deck, fullDeck, cardValue)
 import System.Random
 import Control.Monad.Trans.State
 import Control.Monad.Trans.Class
@@ -15,6 +15,10 @@ data Game = Game
 
 type GameT m = StateT Game m
 
+printTableValue :: [Card] -> IO ()
+printTableValue cs = putStrLn $ "The value of cards is " ++ show vals
+    where vals = sum [cardValue c | c <- cs]
+
 shuffleDeck :: Monad m => GameT m ()
 shuffleDeck = do
     game <- get
@@ -23,11 +27,11 @@ shuffleDeck = do
     put game'
 
 shuffle :: Deck -> StdGen -> (Deck, StdGen)
-shuffle [] gen = ([], gen)
-shuffle deck gen =
-    let (index, newGen) = randomR (0, length deck - 1) gen
-        card = deck !! index
-        rest = take index deck ++ drop (index + 1) deck
+shuffle [] g = ([], g)
+shuffle dk g =
+    let (index, newGen) = randomR (0, length dk - 1) g
+        card = dk !! index
+        rest = take index dk ++ drop (index + 1) dk
     in (card : fst (shuffle rest newGen), newGen)
 
 drawN :: Monad m => Int -> GameT m ()
@@ -70,7 +74,9 @@ gameLoop = do
 printTable :: GameT IO ()
 printTable = do
     g <- get
-    lift $ putStrLn $ "Table: " ++ show (table g)
+    let tabled = table g
+    lift $ putStrLn $ "Table: " ++ show tabled
+    lift $ printTableValue tabled
 
 main :: IO ()
 main = do
